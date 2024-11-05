@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Підрахунок суми і кількості чисел</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            color: #fff;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #ffffff;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            color: #fff;
+            margin: 10px 0;
+        }
+        .input-container input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 2px solid #8bc34a;
+            width: 150px;
+            color: #333;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #8bc34a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #6d9e32;
+        }
+        .result {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 30px;
+            color: #ffeb3b;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Підрахунок суми і кількості</h1>
+        <p>Введіть числа, розділені комами:</p>
+
+        <div class="input-container">
+            <input type="text" id="numbers" placeholder="Наприклад: 10, 20, 30" required>
+        </div>
+
+        <button class="button" onclick="calculateSumAndCount()">Порахувати</button>
+
+        <div id="result" class="result">Результати з'являться тут</div>
+    </div>
+
+    <script>
+        "use strict";
+        function sumAndCount() {
+            var total = 0;
+            var count = 0;
+
+            for (var i = 0; i < arguments.length; i++) {
+                total += arguments[i];
+                count++;
+            }
+
+            return {
+                total: total,
+                count: count
+            };
+        }
+        function calculateSumAndCount() {
+            let input = document.getElementById("numbers").value;
+            let numbersArray = input.split(',').map(Number).filter(num => !isNaN(num)); // Обробка введення
+
+            if (numbersArray.length === 0) {
+                document.getElementById("result").innerHTML = "Будь ласка, введіть дійсні числа.";
+                return;
+            }
+
+            let { total, count } = sumAndCount(...numbersArray); // Використання spread-оператора
+            document.getElementById("result").innerHTML = `Сума: ${total} <br> Кількість введених чисел: ${count}`;
+        }
+    </script>
+</body>
+</html>
